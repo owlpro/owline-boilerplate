@@ -1,12 +1,11 @@
+import { RouterProps } from "interfaces/RouterProps";
 import "kernel/prototypes/array";
 import "kernel/prototypes/number";
 import "kernel/prototypes/object";
 import "kernel/prototypes/string";
-import { NextComponentType } from 'next';
+import { NextComponentType } from "next";
 import React, { Component, Fragment } from 'react';
-import { Provider as ReduxProvider } from "react-redux";
-import { RouterProps } from '../interfaces/RouterProps';
-import { store, wrapper } from '../kernel/redux/storage';
+import { wrapper } from '../kernel/redux/storage';
 
 interface AppProps extends RouterProps {
     pageProps: any,
@@ -15,13 +14,13 @@ interface AppProps extends RouterProps {
 }
 
 class App extends Component<AppProps> {
-    render() {
-        const { Component, pageProps, ...props }: { Component: NextComponentType, pageProps: any } = this.props;
+
+    public render() {
+        console.log(this.props)
+        const { Component, pageProps, ...props } = this.props;
         return (
             <Fragment>
-                <ReduxProvider store={store}>
-                    <Component {...pageProps} {...props} />
-                </ReduxProvider>
+                <Component {...pageProps} {...props} />
             </Fragment>
         )
     }

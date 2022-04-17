@@ -2,6 +2,7 @@ import CharacterItem from 'components/CharacterItem'
 import { RouterProps } from 'interfaces/RouterProps'
 import { get_characters } from 'kernel/redux/characters/actions'
 import { Character } from 'kernel/redux/characters/interfaces'
+import { wrapper } from 'kernel/redux/storage'
 import { State } from 'kernel/redux/types'
 import Link from 'next/link'
 import React, { Component } from 'react'
@@ -15,17 +16,20 @@ interface IndexPageInterface extends RouterProps {
 
 class Index extends Component<IndexPageInterface> {
 
-    componentDidMount() {
-        this.props.get_characters()
-    }
+    static getInitialProps = wrapper.getInitialPageProps(
+        ({ dispatch }) =>
+            async () => {
+                await dispatch(get_characters());
+            }
+    );
 
     render() {
         console.log(this.props)
         return (
             <div>
-                {this.props.character_data.map((character, index) => (
+                {/* {this.props.character_data.map((character, index) => (
                     <CharacterItem key={index} {...character} />
-                ))}
+                ))} */}
                 <Link href="/foo">
                     <a>Foo</a>
                 </Link>
@@ -44,3 +48,4 @@ const mapDispatchToProps = (dispatch: any) => ({
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Index)
+// export default Index;
