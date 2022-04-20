@@ -1,13 +1,8 @@
 import { AxiosError, AxiosResponse } from "axios";
 
-export interface Location {
-    name: string;
-    url: string;
-}
-
-export interface Origin {
-    name: string;
-    url: string;
+export interface CharacterSuccessResponse {
+    info: Pagination,
+    results: Character[]
 }
 
 export interface Character {
@@ -23,6 +18,16 @@ export interface Character {
     episode: string[];
     url: string;
     created: Date;
+}
+
+export interface Location {
+    name: string;
+    url: string;
+}
+
+export interface Origin {
+    name: string;
+    url: string;
 }
 
 export interface Pagination {
@@ -44,7 +49,6 @@ export interface CharacterActionReducer {
     type?: string,
     response?: AxiosResponse,
     error?: AxiosError
-
 }
 
 

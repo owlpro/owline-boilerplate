@@ -1,26 +1,21 @@
 import {
-    Action, AnyAction, configureStore,
-    ThunkAction
+    Action, configureStore, ThunkAction
 } from '@reduxjs/toolkit';
-import { createWrapper, HYDRATE } from 'next-redux-wrapper';
-import combinedReducer from "./reducer";
+import { createWrapper } from 'next-redux-wrapper';
+import logger from 'redux-logger';
+import thunk from 'redux-thunk';
+import CharacterSlice from "./characters/slice";
 
-const reducer = (state: ReturnType<typeof combinedReducer>, action: AnyAction) => {
-    if (action.type === HYDRATE) {
-        const nextState = {
-            ...state, // use previous state
-            ...action.payload, // apply delta from hydration
-        };
-        return nextState;
-    } else {
-        return combinedReducer(state, action);
-    }
-};
+
 
 export const makeStore = () =>
     configureStore({
-        reducer,
+        reducer: {
+            character: CharacterSlice
+        },
+        middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk, logger),
     });
+
 type Store = ReturnType<typeof makeStore>;
 
 export type AppDispatch = Store['dispatch'];

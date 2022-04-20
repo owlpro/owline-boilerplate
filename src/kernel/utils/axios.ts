@@ -20,7 +20,8 @@ axios.interceptors.response.use(
 
 axios.interceptors.request.use(
     function (config: AxiosRequestConfig) {
-        const token: string | null = localStorage.getItem('accessToken');
+        // const token: string | null = localStorage.getItem('accessToken');
+        const token: string | null = null;
         if (token) {
             config.headers = {
                 ...config.headers,
