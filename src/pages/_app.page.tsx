@@ -1,4 +1,4 @@
-import { RouterProps } from "interfaces/RouterProps";
+import { RouterProps } from "kernel/utils/interfaces";
 import "kernel/prototypes/array";
 import "kernel/prototypes/number";
 import "kernel/prototypes/object";

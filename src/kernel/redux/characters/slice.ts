@@ -1,6 +1,7 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import axios from 'axios';
-import { CharacterInitState, CharacterSuccessResponse } from "./interfaces";
+import { createSlice } from '@reduxjs/toolkit';
+import { Reducer } from 'redux';
+import { getCharactersAsync } from './api';
+import { CharacterInitState } from "./interfaces";
 const initState: CharacterInitState = {
     get: {
         process: false,
@@ -13,10 +14,6 @@ const initState: CharacterInitState = {
 }
 
 
-export const getCharactersAsync = createAsyncThunk('character/getCharactersAsync', async () => {
-    const response = await axios.get('https://rickandmortyapi.com/api/character')
-    return response.data as CharacterSuccessResponse;
-})
 
 export const characterSlice = createSlice({
     name: 'character',
@@ -31,11 +28,12 @@ export const characterSlice = createSlice({
         builder
             .addCase(getCharactersAsync.pending, (state, action) => {
                 state.get.process = true;
-
             })
             .addCase(getCharactersAsync.fulfilled, (state, action) => {
+                console.log(action.payload)
                 state.get.process = false;
                 state.get.data = action.payload.results;
+                state.get.pagination = action.payload.info;
             })
             .addCase(getCharactersAsync.rejected, (state, action) => {
                 state.get.process = false;
@@ -45,4 +43,4 @@ export const characterSlice = createSlice({
 
 export const { set_get_process } = characterSlice.actions
 
-export default characterSlice.reducer
+export default characterSlice.reducer as Reducer<typeof initState>

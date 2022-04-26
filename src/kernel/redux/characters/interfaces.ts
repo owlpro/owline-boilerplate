@@ -5,6 +5,10 @@ export interface CharacterSuccessResponse {
     results: Character[]
 }
 
+export interface CharacterFailedResponse {
+    error: string
+}
+
 export interface Character {
     id: number;
     name: string;

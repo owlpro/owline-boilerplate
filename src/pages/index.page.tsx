@@ -1,6 +1,8 @@
-import { RouterProps } from 'interfaces/RouterProps'
+import { PayloadAction } from '@reduxjs/toolkit'
+import CharacterItem from 'components/CharacterItem'
+import { RouterProps } from 'kernel/utils/interfaces'
+import { getCharactersAsync } from 'kernel/redux/characters/api'
 import { Character, CharacterSuccessResponse } from 'kernel/redux/characters/interfaces'
-import { getCharactersAsync } from 'kernel/redux/characters/slice'
 import { AppDispatch, RootState, wrapper } from 'kernel/redux/storage'
 import Link from 'next/link'
 import React, { Component } from 'react'
@@ -9,7 +11,10 @@ import { connect } from 'react-redux'
 interface IndexPageInterface extends RouterProps {
     get_characters: Function,
     character_data: Character[],
-    character_process: boolean
+    character_process: boolean,
+    ssr?: {
+        characters?: Character[]
+    }
 }
 
 class Index extends Component<IndexPageInterface> {
@@ -19,17 +24,23 @@ class Index extends Component<IndexPageInterface> {
         // this.props.get_characters()
     }
 
+    getCharacters = () => {
+        const output = this.props.get_characters()
+        output.then((e: PayloadAction<CharacterSuccessResponse>) => console.log("TRUE", e)).catch((e) => console.log(e))
+    }
+
     render() {
         console.log(this.props)
         return (
             <div>
-                {/* {this.props.data.restules.map((character, index) => (
+                {/* {this.props.ssr.characters.map((character, index) => (
                     <CharacterItem key={index} {...character} />
                 ))} */}
-                <div>resolvedUrl {this.props.character.get.process ? 'true' : 'false'}</div>
+                {/* <div>resolvedUrl {this.props.character.get.process ? 'true' : 'false'}</div> */}
                 <Link href="/foo">
                     <a>Foo</a>
                 </Link>
+                <button onClick={this.getCharacters}>GET CHARACTERS</button>
             </div>
         )
     }
@@ -54,7 +65,9 @@ export const getServerSideProps = wrapper.getServerSideProps(({ dispatch }) => a
 
     return {
         props: {
-            // character_data: response.payload.results,
+            // ssr: {
+            //     characters: response.payload?.results,
+            // }
         }
     }
 })
