@@ -1,10 +1,13 @@
-import { RouterProps } from "kernel/utils/interfaces";
 import "kernel/prototypes/array";
 import "kernel/prototypes/number";
 import "kernel/prototypes/object";
 import "kernel/prototypes/string";
+import { Layout, RouterProps } from "kernel/utils/interfaces";
+import AuthLayout from "layouts/Auth.layout";
+import DashboardLayout from "layouts/Dashboard.layout";
+import SiteLayout from "layouts/Site.layout";
 import { NextComponentType } from "next";
-import React, { Component, Fragment } from 'react';
+import React, { Component, ElementType, Fragment } from 'react';
 import { wrapper } from '../kernel/redux/storage';
 
 interface AppProps extends RouterProps {
@@ -15,12 +18,34 @@ interface AppProps extends RouterProps {
 
 class App extends Component<AppProps> {
 
+    private getLayout = () => {
+        const layouts: { [key: string]: ElementType<Layout> } = {
+            "/dashboard": DashboardLayout,
+            "/auth": AuthLayout,
+            "/": SiteLayout
+        }
+        for (const path in layouts) {
+            if (this.props.router.pathname.startsWith(path)) {
+                return layouts[path]
+            }
+        }
+
+        return SiteLayout;
+
+    }
+
     public render() {
-        console.log(this.props)
+        console.log(this.props.router.pathname.startsWith('/dashboard'))
+        const Layout = this.getLayout();
+
+        console.log(Layout)
+
         const { Component, pageProps, ...props } = this.props;
         return (
             <Fragment>
-                <Component {...pageProps} {...props} />
+                <Layout>
+                    <Component {...pageProps} {...props} />
+                </Layout>
             </Fragment>
         )
     }

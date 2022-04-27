@@ -61,7 +61,7 @@ export const getServerSideProps = wrapper.getServerSideProps(({ dispatch }) => a
     // const res = await axios.get(`https://rickandmortyapi.com/api/character`)
     //   const data = res
 
-    const response = await dispatch(getCharactersAsync())
+    // const response = await dispatch(getCharactersAsync())
 
     return {
         props: {
