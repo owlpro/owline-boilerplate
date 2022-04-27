@@ -1,14 +1,16 @@
+import "assets/icons/fontawesome6.1.1-pro/css/all.min.css";
 import "kernel/prototypes/array";
 import "kernel/prototypes/number";
 import "kernel/prototypes/object";
 import "kernel/prototypes/string";
-import { Layout, RouterProps } from "kernel/utils/interfaces";
+import { RouterProps } from "kernel/utils/interfaces";
 import AuthLayout from "layouts/Auth.layout";
 import DashboardLayout from "layouts/Dashboard.layout";
 import SiteLayout from "layouts/Site.layout";
 import { NextComponentType } from "next";
 import React, { Component, ElementType, Fragment } from 'react';
 import { wrapper } from '../kernel/redux/storage';
+
 
 interface AppProps extends RouterProps {
     pageProps: any,
@@ -19,7 +21,7 @@ interface AppProps extends RouterProps {
 class App extends Component<AppProps> {
 
     private getLayout = () => {
-        const layouts: { [key: string]: ElementType<Layout> } = {
+        const layouts: { [key: string]: ElementType } = {
             "/dashboard": DashboardLayout,
             "/auth": AuthLayout,
             "/": SiteLayout
