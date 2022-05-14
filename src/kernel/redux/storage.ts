@@ -4,14 +4,16 @@ import {
 import { createWrapper } from 'next-redux-wrapper';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
-import CharacterSlice from "./characters/slice";
+import CharacterReducer from "./characters/slice";
+import MainReducer from './main/slice';
 
 
 
 export const makeStore = () =>
     configureStore({
         reducer: {
-            character: CharacterSlice
+            main: MainReducer,
+            character: CharacterReducer,
         },
         middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk, logger),
     });

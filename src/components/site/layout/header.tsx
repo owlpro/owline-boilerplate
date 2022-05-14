@@ -1,20 +1,27 @@
 import { Box, Button, FormControl, Grid, MenuItem, Select, SelectChangeEvent, Typography } from '@mui/material';
 import FontAwesomeIcon from 'components/FontAwesomeIcon';
+import { languages } from 'kernel/redux/main/data';
+import { Language } from 'kernel/redux/main/interfaces';
+import { set_language } from "kernel/redux/main/slice";
+import { RootState } from 'kernel/redux/storage';
 import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 
-interface SiteHeaderInterface { }
+interface SiteHeaderInterface {
+    set_language: Function,
+    language: Language
+}
 
 class SiteHeader extends PureComponent<SiteHeaderInterface> {
 
-    state = {
-        language: 'en'
-    }
+    state = {}
 
-    onChangeLanguage = (event: SelectChangeEvent) => {
-        this.setState({ ...this.state, language: event.target.value })
+    onChangeLanguage = (event: SelectChangeEvent): void => {
+        this.props.set_language(event.target.value)
     }
 
     render() {
+        console.log("RENDER [SITE HEADER]", this.props)
         return (
             <Box mt={3} mb={3}>
                 <Grid container>
@@ -47,12 +54,12 @@ class SiteHeader extends PureComponent<SiteHeaderInterface> {
                             <Box>
                                 <FormControl sx={{ m: 1, minWidth: 68 }} size="small">
                                     <Select
-                                        value={this.state.language}
+                                        value={this.props.language.key}
                                         onChange={this.onChangeLanguage}
                                     >
-                                        <MenuItem value={'en'}>EN</MenuItem>
-                                        <MenuItem value={'fa'}>FA</MenuItem>
-                                        <MenuItem value={'ar'}>AR</MenuItem>
+                                        {languages.map((language, index) => (
+                                            <MenuItem value={language.key} key={index}>{language.title}</MenuItem>
+                                        ))}
                                     </Select>
                                 </FormControl>
                             </Box>
@@ -64,4 +71,9 @@ class SiteHeader extends PureComponent<SiteHeaderInterface> {
     }
 }
 
-export default SiteHeader;
+const mapStateToProps = (state: RootState) => ({
+    language: state.main.language
+})
+const mapDispatchToProps = { set_language }
+
+export default connect(mapStateToProps, mapDispatchToProps)(SiteHeader);

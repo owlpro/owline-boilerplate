@@ -1,9 +1,8 @@
 import { PayloadAction } from '@reduxjs/toolkit'
-import CharacterItem from 'components/CharacterItem'
-import { RouterProps } from 'kernel/utils/interfaces'
 import { getCharactersAsync } from 'kernel/redux/characters/api'
 import { Character, CharacterSuccessResponse } from 'kernel/redux/characters/interfaces'
 import { AppDispatch, RootState, wrapper } from 'kernel/redux/storage'
+import { RouterProps } from 'kernel/utils/interfaces'
 import Link from 'next/link'
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
@@ -47,7 +46,6 @@ class Index extends Component<IndexPageInterface> {
 }
 
 const mapStateToProps = (state: RootState) => ({
-    ...state,
     character_data: state.character.get.data,
     character_process: state.character.get.process
 })

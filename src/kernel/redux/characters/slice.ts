@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { Reducer } from 'redux';
 import { getCharactersAsync } from './api';
 import { CharacterInitState } from "./interfaces";
-const initState: CharacterInitState = {
+const initialState: CharacterInitState = {
     get: {
         process: false,
         data: [],
@@ -17,8 +17,7 @@ const initState: CharacterInitState = {
 
 export const characterSlice = createSlice({
     name: 'character',
-    // `createSlice` will infer the state type from the `initialState` argument
-    initialState: initState,
+    initialState,
     reducers: {
         set_get_process: (state) => {
             state.get.process = true;
@@ -43,4 +42,4 @@ export const characterSlice = createSlice({
 
 export const { set_get_process } = characterSlice.actions
 
-export default characterSlice.reducer as Reducer<typeof initState>
+export default characterSlice.reducer as Reducer<typeof initialState>

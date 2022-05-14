@@ -3,7 +3,7 @@
 const template = 'default';
 
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   applicationRoot : `src/templates/${template}/`,
   pageExtensions: [
     'page.tsx',

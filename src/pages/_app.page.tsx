@@ -1,4 +1,3 @@
-import { createTheme, ThemeProvider } from "@mui/material";
 import "assets/icons/fontawesome6.1.1-pro/css/all.min.css";
 import "assets/sass/loader.scss";
 import "kernel/prototypes/array";
@@ -18,21 +17,6 @@ interface AppProps extends RouterProps {
     Component: NextComponentType
     err: any
 }
-const theme = createTheme({
-    palette: {
-        primary: {
-            main: '#6200E8',
-        }
-    },
-    typography: {
-        fontFamily: "Roboto",
-        button: {
-            textTransform: 'none',
-
-        }
-    }
-});
-
 class App extends Component<AppProps> {
 
     private getLayout = () => {
@@ -54,13 +38,11 @@ class App extends Component<AppProps> {
     public render() {
         const { Component, pageProps, ...props } = this.props;
         const Layout = this.getLayout();
-
+        console.log("pageProps",props)
         return (
-            <ThemeProvider theme={theme}>
-                <Layout>
-                    <Component {...pageProps} {...props} />
-                </Layout>
-            </ThemeProvider>
+            <Layout>
+                <Component {...pageProps} {...props} />
+            </Layout>
         )
     }
 }
