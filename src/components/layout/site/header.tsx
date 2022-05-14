@@ -23,10 +23,10 @@ class SiteHeader extends PureComponent<SiteHeaderInterface> {
     render() {
         console.log("RENDER [SITE HEADER]", this.props)
         return (
-            <Box mt={3} mb={3}>
+            <Box pt={3} pb={3}>
                 <Grid container>
                     <Grid item xs={2}>
-                        <Typography fontSize={'31px'} fontWeight={600}>
+                        <Typography fontSize={'31px'} fontWeight={600} height="100%" display="inline-flex" alignItems="center">
                             eTriza
                         </Typography>
                     </Grid>

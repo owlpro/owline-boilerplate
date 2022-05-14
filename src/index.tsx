@@ -1,23 +1,22 @@
 import { createTheme, ThemeProvider } from "@mui/material";
-import { Direction } from "components/DirectionX";
+import { Direction } from "components/Direction";
 import { Language } from "kernel/redux/main/interfaces";
 import { RootState } from "kernel/redux/storage";
 import { Layout } from "kernel/utils/interfaces";
 import React, { Fragment, PureComponent } from 'react';
 import { connect } from "react-redux";
-
+// console.log(colors.primary)
 const theme = createTheme({
     direction: 'rtl',
     palette: {
         primary: {
             main: '#6200E8',
-        }
+        },
     },
     typography: {
         fontFamily: "Roboto",
         button: {
             textTransform: 'none',
-
         }
     }
 });
