@@ -1,3 +1,4 @@
+import { Typography } from "@mui/material";
 import "assets/icons/fontawesome6.1.1-pro/css/all.min.css";
 import "assets/sass/loader.scss";
 import "kernel/prototypes/array";
@@ -38,7 +39,6 @@ class App extends Component<AppProps> {
     public render() {
         const { Component, pageProps, ...props } = this.props;
         const Layout = this.getLayout();
-        console.log("pageProps",props)
         return (
             <Layout>
                 <Component {...pageProps} {...props} />

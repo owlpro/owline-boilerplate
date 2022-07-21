@@ -7,7 +7,7 @@ export const getCharactersAsync = createAsyncThunk<CharacterSuccessResponse, voi
     'character/get',
     async (_, { rejectWithValue }) => {
         try {
-            const response = await axios.get('https://rickandmortyapi.com/api/characters')
+            const response = await axios.get('https://rickandmortyapi.com/api/character')
             return response?.data
         } catch (error: any) {
             return rejectWithValue(error.response?.data)
